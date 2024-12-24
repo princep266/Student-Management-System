@@ -1,0 +1,264 @@
+/* General container for the Fees Section */
+.fees-section-container {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Heading for the Fees Section */
+.fees-section-heading {
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* --- Search Bar --- */
+
+/* Add styling for the search bar */
+.search-bar {
+  margin-left: 350px;
+  margin-bottom: 22px;
+  padding: 12px;
+  font-size: 16px;
+  width: 350px; 
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.search-bar::placeholder {
+  color: #9a9a9a;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    width: 100%; 
+    font-size: 14px;
+    padding: 10px; 
+  }
+}
+/* --- Fees Form --- */
+
+.fees-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.fees-form .form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling for the form fields */
+.fees-form label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Styling for form input fields */
+.fees-form input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Focus effect for form input fields */
+.fees-form input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Submit button styling */
+.submit-btn {
+  grid-column: span 2;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the submit button */
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+/* --- Fees Table --- */
+
+/* General table styling */
+.fees-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Table header styling */
+.fees-table thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Table cell styling */
+.fees-table th, .fees-table td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Row styling for alternating colors */
+.fees-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Row hover effect */
+.fees-table tbody tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Highlight for due fees */
+.fees-table tbody tr.highlight-due {
+  background-color: #ffe9e9;
+}
+
+/* Status indicators for paid and due fees */
+.status-paid {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.status-due {
+  color: #ff6347;
+  font-weight: bold;
+}
+
+/* Button styling for edit and delete actions */
+.fees-table td button {
+  background-color: #f0ad4e;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for edit button */
+.fees-table td button:hover {
+  background-color: #ec971f;
+}
+
+/* Focus effect for buttons */
+.fees-table td button:focus {
+  outline: none;
+}
+
+/* Delete button styling */
+.fees-table td button:last-child {
+  background-color: #d9534f;
+}
+
+/* Hover effect for delete button */
+.fees-table td button:last-child:hover {
+  background-color: #c9302c;
+}
+
+/* --- Responsive Design --- */
+
+/* Adjustments for smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Fees form grid adjustment for smaller screens */
+  .fees-form {
+    grid-template-columns: 1fr;
+  }
+
+  .submit-btn {
+    grid-column: span 1;
+  }
+
+  /* Fees section padding adjustment */
+  .fees-section-container {
+    padding: 10px;
+  }
+
+  /* Fees section heading font size adjustment */
+  .fees-section-heading {
+    font-size: 20px;
+  }
+
+  /* Table cell font size and padding adjustment */
+  .fees-table th, .fees-table td {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  /* Fees table mobile adjustments */
+  .fees-table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .fees-table thead {
+    display: none;
+  }
+
+  .fees-table tbody, .fees-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .fees-table td {
+    display: block;
+    width: 100%;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  .fees-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    color: #007bff;
+  }
+
+  /* Adjustments for the search bar on small screens */
+  .search-container input {
+    width: 100%; /* Full-width on smaller screens */
+    font-size: 14px; /* Adjust font size for smaller devices */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+}

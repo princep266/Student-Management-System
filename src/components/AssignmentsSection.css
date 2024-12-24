@@ -1,0 +1,164 @@
+/* AssignmentsSection.css */
+
+/* General container styling */
+.assignments-container {
+  max-width: 600px;
+  margin: 50px auto; /* Center the container */
+  padding: 20px;
+  background-color: #fff; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center; /* Center align the content */
+}
+
+/* Heading styling */
+.assignments-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px; /* Space below the heading */
+  color: #333;
+}
+
+/* Input file field */
+.assignments-container input[type="file"] {
+  display: block;
+  margin: 0 auto 20px auto; /* Center the input with space below */
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.assignments-container input[type="file"]:hover {
+  border-color: #0056b3; /* Darker blue border on hover */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Light blue shadow */
+}
+
+.assignments-container input[type="file"]:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.4); /* Stronger shadow on focus */
+}
+
+/* Button styling */
+.assignments-container button {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.assignments-container button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.assignments-container button:focus {
+  outline: none;
+  background-color: #003d80; /* Even darker blue on focus */
+}
+
+/* Message styling */
+.assignments-container p {
+  margin-top: 20px;
+  font-size: 16px;
+  color: green; /* Success message in green */
+}
+
+.assignments-container p.error {
+  color: red; /* Error message in red */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .assignments-container {
+    padding: 15px;
+  }
+
+  .assignments-container h2 {
+    font-size: 22px;
+  }
+
+  .assignments-container input[type="file"],
+  .assignments-container button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+.assignments-container select,
+.assignments-container input[type="file"],
+.assignments-container button {
+  margin: 10px 0; /* Space between elements */
+  width: 100%; /* Full width for better usability */
+  padding: 10px; /* Padding for inputs and button */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ccc; /* Light border */
+}
+
+.assignments-container button {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.assignments-container button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Progress bar container */
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0; /* Light gray background */
+  border-radius: 15px; /* Rounded corners */
+  height: 30px; /* Increased height for a more substantial look */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
+  overflow: hidden;
+  position: relative; /* Allows for absolute positioning of progress text */
+  margin: 20px 0;
+}
+
+/* Progress indicator (the colored portion) */
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%); /* Gradient for a modern look */
+  width: 0; /* Start at 0% */
+  border-radius: 15px; /* Match the border radius of the container */
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.4); /* Soft glow effect for the progress */
+  transition: width 0.4s ease; /* Smooth transition for filling */
+  background-size: 50px 50px; /* Stripes */
+  animation: progress-stripes 1s linear infinite; /* Add animation for striped look */
+}
+
+/* Stripes animation inside the progress bar */
+@keyframes progress-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 50px 0;
+  }
+}
+
+/* Progress text (percentage inside the bar) */
+.progress-bar p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  color: white; /* White text for readability */
+  font-weight: bold;
+  font-size: 16px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Text shadow for better contrast */
+}
+
+/* Optional: Add a subtle hover effect on the progress bar */
+.progress-bar:hover .progress {
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6); /* Stronger glow on hover */
+}
