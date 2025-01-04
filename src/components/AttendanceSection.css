@@ -1,0 +1,126 @@
+
+/* Container for the attendance section */
+.attendance-section {
+    margin-left: 250px;
+    margin-top: 40px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    
+  }
+  
+  /* Title styling */
+  .attendance-title {
+    margin-top: 10px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* List of attendance items */
+  .attendance-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Individual attendance item */
+  .attendance-item {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Student's name styling */
+  .student-name {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Attendance count styling */
+  .attendance-count {
+    font-size: 14px;
+    color: #555;
+    margin-left: 10px;
+  }
+  
+  /* Button container styling */
+  .attendance-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Button styling for Present */
+  .present-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  /* Button styling for Absent */
+  .absent-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    background-color: #f44336;
+    color: white;
+  }
+  
+  /* Submit button styling */
+  .submit-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover effect for buttons */
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Submit button hover effect */
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  /* Additional styles for the Download PDF button */
+.download-pdf-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .download-pdf-button:hover {
+    background-color: #218838;
+  }
+  

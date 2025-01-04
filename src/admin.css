@@ -157,3 +157,65 @@
     grid-template-columns: 1fr; /* Single column on smaller screens */
   }
 }
+/* Time Table & Results Section Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table th, table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.timetable thead, .results-table thead {
+  background-color: #f4f4f4;
+}
+
+/* Reports Section Styles */
+.report-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  background-color: #fafafa;
+  text-align: center;
+}
+
+/* Profile Section Styles */
+.profile-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.profile-form div {
+  margin-bottom: 10px;
+}
+
+.profile-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.profile-form button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-form button:hover {
+  background-color: #218838;
+}

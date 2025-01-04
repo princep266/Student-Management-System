@@ -1,7 +1,5 @@
-// firebase.js
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
-// import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";  // Import addDoc
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore"; // Import serverTimestamp
 import { getDatabase } from "firebase/database"; 
 import { getStorage } from "firebase/storage"; 
 
@@ -20,14 +18,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firestore
+// Initialize Firebase services
 const db = getFirestore(app);
-
-// Initialize Realtime Database
+// Initialize Realtime services 
 const realtimedb = getDatabase(app);
-
-// Initialize Firebase Storage
+// Initialize Storage services
 const storage = getStorage(app);
 
 // Export Firebase services
-export { db, realtimedb, storage, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, };  // Now addDoc is exported
+export { db, realtimedb, storage, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp };  // Now including serverTimestamp

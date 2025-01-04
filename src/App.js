@@ -6,6 +6,7 @@ import Login from "./login";
 import Admin from "./Admin";
 import StudentDashboard from "./components/StudentDashboard"; 
 import StudentAssignment from './components/StudentAssignment';
+import AssignmentsSection from "./components/AssignmentsSection";
 
 const App = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -185,7 +186,7 @@ const App = () => {
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route path="/assignments" element={<StudentAssignment />} /> {  }
+        <Route path="/assignments" element={<AssignmentsSection />} /> {  }
         <Route path="/admin/*" element={<Admin />} /> { }
       </Routes>
     </Router>

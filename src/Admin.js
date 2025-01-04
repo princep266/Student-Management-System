@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Link, useNavigate } from "react-router-dom";
-import { db } from './components/firebase'; // Import your Firestore instance
-import { collection, getDocs } from 'firebase/firestore'; // Import Firestore methods
+import { db } from './components/firebase';
+import { collection, getDocs } from 'firebase/firestore'; // Firestore methods
 
 import StudentSection from "./components/StudentSection";
 import FeesSection from "./components/FeesSection";
 import NoticeBoard from "./components/NoticeBoard";
-import AssignmentsSection from "./components/AssignmentsSection"; // Ensure this path is correct
+import AssignmentsSection from "./components/AssignmentsSection";
+import AttendanceSection from "./components/AttendanceSection";
+import TimeTableSection from "./components/TimeTableSection";
+import ResultsSection from "./components/ResultsSection";
+import ReportsSection from "./components/ReportsSection";
+import ProfileSection from "./components/ProfileSection";
 import "./admin.css";
+import StudentAssignments from "./components/StudentAssignment";
 
 const Admin = () => {
   const [totalStudents, setTotalStudents] = useState(0);
-  const [totalNotices, setTotalNotices] = useState(0); // State to hold the number of notices
-  const [totalFeesCollected, setTotalFeesCollected] = useState(0); // State to hold total fees
-  const [totalBalance, setTotalBalance] = useState(0); // State to hold total balance
+  const [totalNotices, setTotalNotices] = useState(0); 
+  const [totalFeesCollected, setTotalFeesCollected] = useState(0); 
+  const [totalBalance, setTotalBalance] = useState(0); 
+  const [totalResultsPublished, setTotalResultsPublished] = useState(0); 
+  const [totalTimeTables, setTotalTimeTables] = useState(0); 
+  const [activeMenu, setActiveMenu] = useState("dashboard"); // State for active menu item
 
-  const navigate = useNavigate(); // Add useNavigate for navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTotalStudents = async () => {
       try {
-        const studentsRef = collection(db, "students"); // Reference to the students collection
+        const studentsRef = collection(db, "students");
         const studentDocs = await getDocs(studentsRef);
-        setTotalStudents(studentDocs.size); // Get the size of the collection
+        setTotalStudents(studentDocs.size);
       } catch (error) {
         console.error("Error fetching total students: ", error);
       }
@@ -30,9 +39,9 @@ const Admin = () => {
 
     const fetchTotalNotices = async () => {
       try {
-        const noticesRef = collection(db, "notices"); // Reference to the notices collection
+        const noticesRef = collection(db, "notices");
         const noticeDocs = await getDocs(noticesRef);
-        setTotalNotices(noticeDocs.size); // Get the size of the collection
+        setTotalNotices(noticeDocs.size);
       } catch (error) {
         console.error("Error fetching total notices: ", error);
       }
@@ -40,7 +49,7 @@ const Admin = () => {
 
     const fetchFeesData = async () => {
       try {
-        const feesRef = collection(db, "fees"); // Reference to the fees collection
+        const feesRef = collection(db, "fees");
         const feeDocs = await getDocs(feesRef);
         
         let feesCollected = 0;
@@ -52,21 +61,46 @@ const Admin = () => {
           balance += fee.balanceAmount || 0;
         });
 
-        setTotalFeesCollected(feesCollected); // Set the total fees collected
-        setTotalBalance(balance); // Set the total balance
+        setTotalFeesCollected(feesCollected); 
+        setTotalBalance(balance); 
       } catch (error) {
         console.error("Error fetching fees data: ", error);
+      }
+    };
+
+    const fetchResultsData = async () => {
+      try {
+        const resultsRef = collection(db, "results");
+        const resultDocs = await getDocs(resultsRef);
+        setTotalResultsPublished(resultDocs.size);
+      } catch (error) {
+        console.error("Error fetching results data: ", error);
+      }
+    };
+
+    const fetchTimeTables = async () => {
+      try {
+        const timeTablesRef = collection(db, "timetables");
+        const timeTableDocs = await getDocs(timeTablesRef);
+        setTotalTimeTables(timeTableDocs.size);
+      } catch (error) {
+        console.error("Error fetching time tables: ", error);
       }
     };
 
     fetchTotalStudents();
     fetchTotalNotices();
     fetchFeesData();
+    fetchResultsData(); 
+    fetchTimeTables(); 
   }, []);
 
-  // Handle sign-out by navigating to login page
   const handleSignOut = () => {
-    navigate("/login"); // Navigate to the login page on sign out
+    navigate("/login");
+  };
+
+  const handleMenuClick = (menu) => {
+    setActiveMenu(menu); // Set the active menu item
   };
 
   return (
@@ -75,43 +109,107 @@ const Admin = () => {
         <h2>Admin Dashboard</h2>
         <nav>
           <ul>
-            <li><Link to="/admin">Dashboard</Link></li>
-            <li><Link to="/Admin/students">Students</Link></li>
-            <li><Link to="/Admin/fees">Fees</Link></li>
-            <li><Link to="/Admin/notice-board">Notice Board</Link></li>
-            <li><Link to="/Admin/assignments">Assignments</Link></li> {/* Link for Assignments */}
+            <li>
+              <Link to="/admin" onClick={() => handleMenuClick("dashboard")}>
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/students" onClick={() => handleMenuClick("students")}>
+                Students
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/fees" onClick={() => handleMenuClick("fees")}>
+                Fees
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/notice-board" onClick={() => handleMenuClick("notices")}>
+                Notice Board
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/assignments" onClick={() => handleMenuClick("assignments")}>
+                Assignments
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/attendance" onClick={() => handleMenuClick("attendance")}>
+                Attendance
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/timetable" onClick={() => handleMenuClick("timetable")}>
+                Time Table
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/results" onClick={() => handleMenuClick("results")}>
+                Results
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/reports" onClick={() => handleMenuClick("reports")}>
+                Reports
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/profile" onClick={() => handleMenuClick("profile")}>
+                Profile
+              </Link>
+            </li>
           </ul>
         </nav>
-        <button className="logout-button" onClick={handleSignOut}>Sign Out</button> {/* Sign out button */}
+        <button className="logout-button" onClick={handleSignOut}>
+          Sign Out
+        </button>
       </aside>
 
       <main className="admin-content">
-        <h1 className="dashboard-title">Dashboard Overview</h1>
-        <div className="dashboard-grid">
-          <div className="dashboard-card">
-            <h3>Total Students</h3>
-            <p>{totalStudents}</p> {/* Display total number of students */}
-          </div>
-          <div className="dashboard-card">
-            <h3>Total Fees Collected</h3>
-            <p>{totalFeesCollected}</p> {/* Display total fees collected */}
-          </div>
-          <div className="dashboard-card">
-            <h3>Total Balance</h3>
-            <p>{totalBalance}</p> {/* Display total balance */}
-          </div>
-          <div className="dashboard-card">
-            <h3>New Notices</h3>
-            <p>{totalNotices}</p> {/* Display total number of notices */}
-          </div>
-        </div>
+        {activeMenu === "dashboard" && (
+          <>
+            <h1 className="dashboard-title">Dashboard Overview</h1>
+            <div className="dashboard-grid">
+              <div className="dashboard-card">
+                <h3>Total Students</h3>
+                <p>{totalStudents}</p>
+              </div>
+              <div className="dashboard-card">
+                <h3>Total Fees Collected</h3>
+                <p>{totalFeesCollected}</p>
+              </div>
+              <div className="dashboard-card">
+                <h3>Total Balance</h3>
+                <p>{totalBalance}</p>
+              </div>
+              <div className="dashboard-card">
+                <h3>New Notices</h3>
+                <p>{totalNotices}</p>
+              </div>
+              <div className="dashboard-card">
+                <h3>Results Published</h3>
+                <p>{totalResultsPublished}</p>
+              </div>
+              <div className="dashboard-card">
+                <h3>Time Tables</h3>
+                <p>{totalTimeTables}</p>
+              </div>
+            </div>
+          </>
+        )}
 
+        {/* Render other sections based on the active menu */}
         <Routes>
-          
           <Route path="/students" element={<StudentSection />} />
           <Route path="/fees" element={<FeesSection />} />
           <Route path="/notice-board" element={<NoticeBoard />} />
-          <Route path="/assignments" element={<AssignmentsSection />} /> {/* Route for Assignments */}
+          <Route path="/assignments" element={<StudentAssignments />} />
+          <Route path="/attendance" element={<AttendanceSection />} /> 
+          <Route path="/timetable" element={<TimeTableSection />} />
+          <Route path="/results" element={<ResultsSection />} />
+          <Route path="/reports" element={<ReportsSection />} />
+          <Route path="/profile" element={<ProfileSection />} />
         </Routes>
       </main>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { db, realtimedb } from './firebase';  // Import both Firestore and Realtime Database
-import { collection, addDoc } from 'firebase/firestore'; // Firestore methods
-import { ref, push, onValue } from 'firebase/database'; // Realtime Database methods
+import { db, realtimedb } from './firebase';  
+import { collection, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'; 
+import { ref, push, onValue, remove, update } from 'firebase/database'; 
 import "./student.css";
 
 const StudentSection = () => {
@@ -18,10 +18,12 @@ const StudentSection = () => {
     fatherName: "", 
     motherName: "", 
   });
+  const [editMode, setEditMode] = useState(false);
+  const [currentStudentId, setCurrentStudentId] = useState(null);
 
   // Fetch student data from Realtime Database
   useEffect(() => {
-    const studentRef = ref(realtimedb, "students"); // Realtime Database reference
+    const studentRef = ref(realtimedb, "students");
     const unsubscribe = onValue(studentRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -29,13 +31,13 @@ const StudentSection = () => {
           id: key,
           ...data[key],
         }));
-        setStudents(studentsData); // Update state with fetched data
+        setStudents(studentsData);
       } else {
-        setStudents([]); // Clear the list if no data is available
+        setStudents([]);
       }
     });
-    return () => unsubscribe(); // Clean up listener on unmount
-  }, []); // Empty array means this effect runs once when the component mounts
+    return () => unsubscribe();
+  }, []); 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,23 +70,59 @@ const StudentSection = () => {
     };
 
     try {
-      // Store data in Firestore
-      await addDoc(collection(db, "students"), studentData);
+      if (editMode) {
+        // Update student data
+        const firestoreDoc = doc(db, "students", currentStudentId);
+        await updateDoc(firestoreDoc, studentData);
+        
+        const studentRef = ref(realtimedb, `students/${currentStudentId}`);
+        await update(studentRef, studentData);
+        
+        alert('Student details updated successfully.');
+        setEditMode(false);
+      } else {
+        // Add new student
+        await addDoc(collection(db, "students"), studentData);
+        const studentRef = ref(realtimedb, "students");
+        await push(studentRef, studentData);
+        alert(`New student added! Roll: ${newRoll}, Password: ${newPassword}, ID: ${newStudentId}`);
+      }
 
-      // Store data in Realtime Database
-      const studentRef = ref(realtimedb, "students");
-      await push(studentRef, studentData); 
-
-      // Reset form
       setNewStudent({ name: "", roll: "", class: "", section: "", password: "", studentId: "", contactNo: "", address: "", fatherName: "", motherName: "" });
-      alert(`New student added! Roll: ${newRoll}, Password: ${newPassword}, ID: ${newStudentId}`);
     } catch (error) {
-      console.error("Error adding student: ", error);
+      console.error("Error adding/updating student: ", error);
     }
   };
 
   const handleEdit = (student) => {
-    console.log("Editing student:", student);
+    setEditMode(true);
+    setCurrentStudentId(student.id);
+    setNewStudent({
+      name: student.name,
+      roll: student.roll,
+      class: student.class,
+      section: student.section,
+      password: student.password,
+      studentId: student.studentId,
+      contactNo: student.contactNo,
+      address: student.address,
+      fatherName: student.fatherName,
+      motherName: student.motherName,
+    });
+  };
+
+  const handleDelete = async (studentId) => {
+    try {
+      const firestoreDoc = doc(db, "students", studentId);
+      await deleteDoc(firestoreDoc);
+
+      const studentRef = ref(realtimedb, `students/${studentId}`);
+      await remove(studentRef);
+
+      alert('Student deleted successfully.');
+    } catch (error) {
+      console.error("Error deleting student: ", error);
+    }
   };
 
   const [showStudents, setShowStudents] = useState(false);
@@ -102,7 +140,7 @@ const StudentSection = () => {
         <input type="text" name="address" placeholder="Address" value={newStudent.address} onChange={handleInputChange} required />
         <input type="text" name="fatherName" placeholder="Father's Name" value={newStudent.fatherName} onChange={handleInputChange} required />
         <input type="text" name="motherName" placeholder="Mother's Name" value={newStudent.motherName} onChange={handleInputChange} required />
-        <button type="submit">Add Student</button>
+        <button type="submit">{editMode ? "Update Student" : "Add Student"}</button>
       </form>
 
       <button onClick={toggleShowStudents} className="view-students-btn">
@@ -127,8 +165,8 @@ const StudentSection = () => {
             </tr>
           </thead>
           <tbody>
-            {students.map((student, index) => (
-              <tr key={index}>
+            {students.map((student) => (
+              <tr key={student.id}>
                 <td>{student.name}</td>
                 <td>{student.roll}</td>
                 <td>{student.class}</td>
@@ -140,9 +178,8 @@ const StudentSection = () => {
                 <td>{student.password}</td>
                 <td>{student.studentId}</td>
                 <td>
-                  <button className="edit-button" onClick={() => handleEdit(student)}>
-                    Edit
-                  </button>
+                  <button className="edit-btn" onClick={() => handleEdit(student)}>Edit</button>
+                  <button className="delete-btn" onClick={() => handleDelete(student.id)}>Delete</button>
                 </td>
               </tr>
             ))}

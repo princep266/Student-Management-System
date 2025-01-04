@@ -1,129 +1,165 @@
 import React, { useState, useEffect } from "react";
-import { db, storage } from './firebase'; // Import the Firestore and Storage instances
-import { collection, onSnapshot, updateDoc, doc, arrayUnion } from 'firebase/firestore'; // Firestore methods
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; // Storage methods for resumable upload
-import "./AssignmentsSection.css"; // Import the CSS file
+import { db, storage } from "./firebase"; // Import Firestore and Firebase Storage instance
+import { collection, onSnapshot, addDoc, doc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // For file upload
+import "./AssignmentsSection.css";
 
 const AssignmentsSection = () => {
-  const [file, setFile] = useState(null);
-  const [message, setMessage] = useState("");
-  const [selectedStudent, setSelectedStudent] = useState(""); // State for selected student
-  const [students, setStudents] = useState([]); // State to store students
-  const [uploading, setUploading] = useState(false); // State to track if uploading
-  const [progress, setProgress] = useState(0); // State for tracking progress percentage
+  const [assignments, setAssignments] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [comments, setComments] = useState({}); 
+  const [file, setFile] = useState(null); 
 
-  // Fetch students from Firestore when the component mounts
   useEffect(() => {
-    const unsubscribeStudents = onSnapshot(collection(db, "students"), (snapshot) => {
-      const studentsData = snapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setStudents(studentsData); // Update students state with real-time data
+    // Fetch all assignments from Firestore
+    const assignmentsQuery = collection(db, "assignments");
+
+    const unsubscribeAssignments = onSnapshot(assignmentsQuery, (snapshot) => {
+      if (snapshot.empty) {
+        setErrorMessage("No assignments available.");
+      } else {
+        const assignmentsData = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setAssignments(assignmentsData);
+      }
     });
 
-    // Cleanup the listeners when the component unmounts
+    // Cleanup subscription
     return () => {
-      unsubscribeStudents();
+      unsubscribeAssignments();
     };
   }, []);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleStudentChange = (e) => {
-    setSelectedStudent(e.target.value);
-  };
-
-  const handleUpload = async () => {
-    if (!file) {
-      setMessage("Please select a file to upload.");
-      return;
-    }
-
-    if (!selectedStudent) {
-      setMessage("Please select a student to assign the assignment.");
+  // Function to handle comment submission
+  const handleCommentSubmit = async (assignmentId) => {
+    const comment = comments[assignmentId];
+    if (!comment || !comment.trim()) {
+      setErrorMessage("Please enter a comment before submitting.");
       return;
     }
 
     try {
-      // Create a storage reference
-      const storageRef = ref(storage, `assignments/${selectedStudent}/${file.name}`);
+      const assignmentRef = doc(db, "assignments", assignmentId);
+      await updateDoc(assignmentRef, {
+        comments: [
+          ...(assignments.find((assignment) => assignment.id === assignmentId)?.comments || []),
+          { text: comment, submittedAt: new Date() },
+        ],
+      });
 
-      // Upload the file with progress tracking
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      // Set the uploading state to true
-      setUploading(true);
-      setMessage("Uploading file...");
-
-      // Monitor the file upload progress
-      uploadTask.on('state_changed', 
-        (snapshot) => {
-          // Calculate progress percentage
-          const progressPercentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setProgress(Math.round(progressPercentage)); // Update progress state
-        },
-        (error) => {
-          // Handle any errors during upload
-          setMessage("Error uploading file: " + error.message);
-          setUploading(false); // Stop the loading animation on error
-        },
-        async () => {
-          // Get the download URL once the upload is complete
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-
-          // Save the download URL in Firestore under the selected student's document
-          const studentRef = doc(db, "students", selectedStudent);
-          await updateDoc(studentRef, {
-            assignments: arrayUnion(downloadURL) // Use arrayUnion directly to append the URL to the assignments array
-          });
-
-          // Set success message
-          setMessage(`File assigned to ${students.find(student => student.id === selectedStudent).name} successfully!`);
-
-          // Clear the file and student selection after upload
-          setFile(null);
-          setSelectedStudent("");
-          setUploading(false); // Stop the loading animation
-          setProgress(0); // Reset progress
-        }
-      );
+      // Clear the comment input for the specific assignment
+      setComments((prevComments) => ({
+        ...prevComments,
+        [assignmentId]: "", // Clear comment for that assignment
+      }));
+      setErrorMessage(""); // Clear any error messages
     } catch (error) {
-      setMessage("Error uploading file: " + error.message);
-      setUploading(false); // Stop the loading animation on error
+      setErrorMessage("Error submitting comment: " + error.message);
     }
+  };
+
+  // Function to handle file upload and submission
+  const handleFileUpload = async (assignmentId) => {
+    if (!file) {
+      setErrorMessage("Please select a file before submitting.");
+      return;
+    }
+
+    try {
+      // Upload the file to Firebase Storage
+      const storageRef = ref(storage, `submittedWork/${file.name}`);
+      await uploadBytes(storageRef, file);
+      const fileUrl = await getDownloadURL(storageRef);
+
+      // Update the assignment with the submitted file URL
+      const assignmentRef = doc(db, "assignments", assignmentId);
+      await updateDoc(assignmentRef, {
+        submittedWork: fileUrl,
+      });
+
+      setFile(null); // Clear the file input after submission
+      setErrorMessage(""); // Clear any error messages
+    } catch (error) {
+      setErrorMessage("Error uploading file: " + error.message);
+    }
+  };
+
+  // Handle comment input for each assignment
+  const handleCommentChange = (e, assignmentId) => {
+    const { value } = e.target;
+    setComments((prevComments) => ({
+      ...prevComments,
+      [assignmentId]: value,
+    }));
   };
 
   return (
     <div className="assignments-container">
-      <h2>Upload Assignments</h2>
-      
-      <label htmlFor="student-select">Select Student:</label>
-      <select id="student-select" value={selectedStudent} onChange={handleStudentChange}>
-        <option value="">-- Select a Student --</option>
-        {students.map((student) => (
-          <option key={student.id} value={student.id}>
-            {student.name}
-          </option>
-        ))}
-      </select>
+      <h2>Assignments</h2>
 
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload} disabled={uploading}>Assign Assignment</button>
+      {}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      {/* Show progress bar when uploading */}
-      {uploading && (
-        <div className="progress-bar">
-          <div className="progress" style={{ width: `${progress}%` }}></div>
-          <p>{progress}%</p>
-        </div>
-      )}
+      {}
+      <div className="assignments-list">
+        {assignments.length > 0 ? (
+          assignments.map((assignment) => (
+            <div key={assignment.id} className="assignment-card">
+              <h3>{assignment.title || "Untitled Assignment"}</h3>
+              <p>{assignment.description || "No description available."}</p>
+              <p>
+                Due:{" "}
+                {assignment.dueDate
+                  ? new Date(assignment.dueDate.seconds * 1000).toLocaleDateString()
+                  : "No due date"}
+              </p>
+              <p>Status: {assignment.status || "Pending"}</p>
+              
+              <a href={assignment.fileUrl} target="_blank" rel="noopener noreferrer">
+                Download File
+              </a>
 
-      {message && <p className={message.includes("successfully") ? "success-message" : "error-message"}>{message}</p>}
+              {}
+              <div className="comments-section">
+                <h4>Comments</h4>
+                <div className="comments-list">
+                  {assignment.comments?.map((comment, index) => (
+                    <div key={index} className="comment">
+                      <p>{comment.text}</p>
+                      <p className="comment-date">
+                        {new Date(comment.submittedAt.seconds * 1000).toLocaleString()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <textarea
+                  value={comments[assignment.id] || ""}
+                  onChange={(e) => handleCommentChange(e, assignment.id)}
+                  placeholder="Add your comment"
+                ></textarea>
+                <button onClick={() => handleCommentSubmit(assignment.id)}>Submit Comment</button>
+              </div>
+
+              {/* File Submission Section */}
+              <div className="file-upload-section">
+                <input
+                  type="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
+                <button onClick={() => handleFileUpload(assignment.id)}>
+                  Submit Work
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No assignments found.</p>
+        )}
+      </div>
     </div>
-    
   );
 };
 

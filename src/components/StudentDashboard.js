@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { collection, doc, getDoc, onSnapshot, query, where, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, onSnapshot, getDocs, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 import "./studentDashboard.css";
 
@@ -21,6 +21,8 @@ const StudentDashboard = () => {
   const [balanceAmount, setBalanceAmount] = useState(0);
   const [feesData, setFeesData] = useState([]);
   const [showFeesDetails, setShowFeesDetails] = useState(false);
+  const [assignments, setAssignments] = useState([]); // State to store assignments
+  const [attendanceCount, setAttendanceCount] = useState(0); // State to store attendance count
 
   // Fetch student details from Firestore
   useEffect(() => {
@@ -53,12 +55,12 @@ const StudentDashboard = () => {
     fetchStudentData();
   }, [studentId]);
 
-  // Fetch fees data
+  // Fetch fees data (filtered by studentId)
   useEffect(() => {
     const fetchFeesData = async () => {
       if (studentId) {
         try {
-          const q = query(collection(db, "fees"), where("studentId", "==", studentId));
+          const q = query(collection(db, "fees"), where("studentId", "==", studentId)); // Filter by studentId
           const querySnapshot = await getDocs(q);
 
           const fees = querySnapshot.docs.map((doc) => ({
@@ -78,7 +80,7 @@ const StudentDashboard = () => {
     fetchFeesData();
   }, [studentId]);
 
-  // Fetch notices in real-time
+  // Fetch notices in real-time (for all students)
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "notices"), (snapshot) => {
       const noticesData = snapshot.docs.map((doc) => ({
@@ -90,6 +92,55 @@ const StudentDashboard = () => {
 
     return () => unsubscribe();
   }, []);
+
+  // Fetch all assignments (no filtering by studentId)
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      try {
+        const q = collection(db, "assignments"); // Fetch all assignments
+        const querySnapshot = await getDocs(q);
+
+        const assignmentsData = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+
+        console.log("Assignments fetched:", assignmentsData); // Debugging log
+
+        setAssignments(assignmentsData);
+      } catch (error) {
+        console.error("Error fetching assignments data:", error);
+      }
+    };
+
+    fetchAssignments();
+  }, []);
+
+  // Fetch attendance data (filtered by studentId)
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      if (studentId) {
+        try {
+          const q = query(collection(db, "attendance"), where("studentId", "==", studentId)); // Filter by studentId
+          const querySnapshot = await getDocs(q);
+
+          const attendanceData = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+
+          // Calculate total attendance count
+          const totalAttendance = attendanceData.length;
+          setAttendanceCount(totalAttendance);  // Set the attendance count
+          console.log("Total attendance fetched:", totalAttendance);  // Debugging log
+        } catch (error) {
+          console.error("Error fetching attendance data:", error);
+        }
+      }
+    };
+
+    fetchAttendanceData();
+  }, [studentId]);
 
   const handleLogout = () => {
     navigate("/login");
@@ -115,7 +166,7 @@ const StudentDashboard = () => {
         <ul className="sidebar-menu">
           <li><a href="/timetable">Time Table</a></li>
           <li><a href="/assignments">Assignments</a></li>
-          <li><a href="/homework">Homework</a></li>
+          
           <li><a href="/subjects">Subjects</a></li>
           <li><a href="/teacher">Class Teacher</a></li>
           <li><a href="/exams">Exam Marks</a></li>
@@ -123,7 +174,7 @@ const StudentDashboard = () => {
             <a
               className="fees-link"
               onClick={handleViewFeesDetails}
-              style={{ cursor: "pointer" }}
+             
             >
               Fee Information
             </a>
@@ -181,9 +232,9 @@ const StudentDashboard = () => {
                 ) : (
                   <>
                     <p>Student ID: {studentId}</p>
-                    <p>Roll No: {studentInfo.roll||"N/A"}</p>
-                    <p>Class: {studentInfo.class||"N/A"}</p>
-                    <p>Section: {studentInfo.section||"N/A"}</p>
+                    <p>Roll No: {studentInfo.roll || "N/A"}</p>
+                    <p>Class: {studentInfo.class || "N/A"}</p>
+                    <p>Section: {studentInfo.section || "N/A"}</p>
                   </>
                 )}
               </div>
@@ -193,11 +244,11 @@ const StudentDashboard = () => {
             <section className="performance-grid">
               <div className="performance-card attendance">
                 <h4>Attendance</h4>
-                <p>9</p>
+                <p>{attendanceCount}</p> {/* Display total attendance count */}
               </div>
               <div className="performance-card assignments">
                 <h4>Assignments</h4>
-                <p>3</p>
+                <p>{assignments.length}</p> {/* Display total number of assignments */}
               </div>
               <div className="performance-card fee">
                 <h4>Pending Fee Balance</h4>
