@@ -1,0 +1,132 @@
+/* General section styling */
+.results-section {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eaeaea;
+}
+
+/* Section heading */
+.results-section h2 {
+  font-size: 24px;
+  text-align: center;
+  color: #333333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Form styling */
+.result-form {
+  margin-bottom: 30px;
+}
+
+.result-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #555555;
+  margin-bottom: 5px;
+}
+
+.result-form select,
+.result-form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.result-form select:focus,
+.result-form input:focus {
+  border-color: #007bff;
+}
+
+.result-form button {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #ffffff;
+  background: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.result-form button:hover {
+  background: #0056b3;
+}
+
+/* Table styling */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.results-table th,
+.results-table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #eaeaea;
+}
+
+.results-table th {
+  background: #f4f4f4;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #333333;
+}
+
+.results-table td {
+  font-size: 14px;
+  color: #555555;
+}
+
+.results-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.results-table tr:hover {
+  background: #f1f1f1;
+}
+
+.no-results-message {
+  font-size: 16px;
+  color: #888888;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 600px) {
+  .results-section {
+    padding: 15px;
+  }
+
+  .result-form input,
+  .result-form select,
+  .result-form button {
+    font-size: 14px;
+  }
+
+  .results-table th,
+  .results-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .results-table {
+    font-size: 12px;
+  }
+}

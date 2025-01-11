@@ -14,6 +14,7 @@
 }
 
 .assignment-upload-form label {
+  text-align: left;
   font-weight: bold;
   margin-bottom: 5px;
 }
@@ -68,4 +69,7 @@ button:hover {
   height: 100%;
   background-color: #4caf50;
   transition: width 0.5s;
+}
+.h2{
+  color:#007bff;
 }

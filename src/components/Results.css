@@ -1,0 +1,119 @@
+/* Results.css */
+
+.results {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: "Arial", sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+  
+  .result-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .result-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .result-card h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+  
+  .result-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 5px 0;
+  }
+  
+  strong {
+    color: #2c3e50;
+  }
+  
+  .subject-results-table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+  
+  .subject-results-table th,
+  .subject-results-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  
+  .subject-results-table th {
+    background-color: #2c3e50;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+  }
+  
+  .subject-results-table td {
+    background-color: #fff;
+  }
+  
+  .subject-results-table tr:nth-child(even) td {
+    background-color: #f3f3f3;
+  }
+  
+  .subject-results-table td:first-child {
+    font-weight: 600;
+  }
+  
+  p {
+    margin-bottom: 15px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .result-card {
+      padding: 15px;
+    }
+  
+    .result-card h3 {
+      font-size: 1.3rem;
+    }
+  
+    .subject-results-table th, .subject-results-table td {
+      padding: 10px;
+    }
+  
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .result-card {
+      padding: 10px;
+    }
+  
+    .subject-results-table th, .subject-results-table td {
+      font-size: 0.85rem;
+      padding: 8px;
+    }
+  
+    h2 {
+      font-size: 1.6rem;
+    }
+  }
+  

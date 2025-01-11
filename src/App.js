@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 import Login from "./login"; 
 import Admin from "./Admin";
+import Results from './components/Results'; 
 import StudentDashboard from "./components/StudentDashboard"; 
-import StudentAssignment from './components/StudentAssignment';
 import AssignmentsSection from "./components/AssignmentsSection";
 
 const App = () => {
@@ -179,12 +179,13 @@ const App = () => {
                 </div>
               </div>
               <div className="footer-bottom">
-                <p>&copy; 2024 Prince Prajapati. All rights reserved.</p>
+                <p>&copy; 2025 Prince Prajapati. All rights reserved.</p>
               </div>
             </footer>
           </>
         } />
         <Route path="/login" element={<Login />} />
+        <Route path="/Results" element={<Results />} /> {}
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/assignments" element={<AssignmentsSection />} /> {  }
         <Route path="/admin/*" element={<Admin />} /> { }

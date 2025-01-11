@@ -21,8 +21,8 @@ const StudentDashboard = () => {
   const [balanceAmount, setBalanceAmount] = useState(0);
   const [feesData, setFeesData] = useState([]);
   const [showFeesDetails, setShowFeesDetails] = useState(false);
-  const [assignments, setAssignments] = useState([]); // State to store assignments
-  const [attendanceCount, setAttendanceCount] = useState(0); // State to store attendance count
+  const [assignments, setAssignments] = useState([]);
+  const [attendanceCount, setAttendanceCount] = useState(0);
 
   // Fetch student details from Firestore
   useEffect(() => {
@@ -60,7 +60,7 @@ const StudentDashboard = () => {
     const fetchFeesData = async () => {
       if (studentId) {
         try {
-          const q = query(collection(db, "fees"), where("studentId", "==", studentId)); // Filter by studentId
+          const q = query(collection(db, "fees"), where("studentId", "==", studentId));
           const querySnapshot = await getDocs(q);
 
           const fees = querySnapshot.docs.map((doc) => ({
@@ -97,15 +97,13 @@ const StudentDashboard = () => {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const q = collection(db, "assignments"); // Fetch all assignments
+        const q = collection(db, "assignments");
         const querySnapshot = await getDocs(q);
 
         const assignmentsData = querySnapshot.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-
-        console.log("Assignments fetched:", assignmentsData); // Debugging log
 
         setAssignments(assignmentsData);
       } catch (error) {
@@ -121,7 +119,7 @@ const StudentDashboard = () => {
     const fetchAttendanceData = async () => {
       if (studentId) {
         try {
-          const q = query(collection(db, "attendance"), where("studentId", "==", studentId)); // Filter by studentId
+          const q = query(collection(db, "attendance"), where("studentId", "==", studentId));
           const querySnapshot = await getDocs(q);
 
           const attendanceData = querySnapshot.docs.map((doc) => ({
@@ -129,10 +127,7 @@ const StudentDashboard = () => {
             id: doc.id,
           }));
 
-          // Calculate total attendance count
-          const totalAttendance = attendanceData.length;
-          setAttendanceCount(totalAttendance);  // Set the attendance count
-          console.log("Total attendance fetched:", totalAttendance);  // Debugging log
+          setAttendanceCount(attendanceData.length);
         } catch (error) {
           console.error("Error fetching attendance data:", error);
         }
@@ -144,6 +139,10 @@ const StudentDashboard = () => {
 
   const handleLogout = () => {
     navigate("/login");
+  };
+
+  const handleViewResults = () => {
+    navigate("/Results"); // Navigate to Results page
   };
 
   const handleViewFeesDetails = () => {
@@ -166,15 +165,15 @@ const StudentDashboard = () => {
         <ul className="sidebar-menu">
           <li><a href="/timetable">Time Table</a></li>
           <li><a href="/assignments">Assignments</a></li>
-          
           <li><a href="/subjects">Subjects</a></li>
           <li><a href="/teacher">Class Teacher</a></li>
-          <li><a href="/exams">Exam Marks</a></li>
+          <li>
+            <a className="results-link" onClick={handleViewResults}>Results</a>
+          </li>
           <li>
             <a
               className="fees-link"
               onClick={handleViewFeesDetails}
-             
             >
               Fee Information
             </a>
@@ -244,11 +243,11 @@ const StudentDashboard = () => {
             <section className="performance-grid">
               <div className="performance-card attendance">
                 <h4>Attendance</h4>
-                <p>{attendanceCount}</p> {/* Display total attendance count */}
+                <p>{attendanceCount}</p>
               </div>
               <div className="performance-card assignments">
                 <h4>Assignments</h4>
-                <p>{assignments.length}</p> {/* Display total number of assignments */}
+                <p>{assignments.length}</p>
               </div>
               <div className="performance-card fee">
                 <h4>Pending Fee Balance</h4>

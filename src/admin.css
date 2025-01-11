@@ -157,22 +157,6 @@
     grid-template-columns: 1fr; /* Single column on smaller screens */
   }
 }
-/* Time Table & Results Section Styles */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
-
-table th, table td {
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-.timetable thead, .results-table thead {
-  background-color: #f4f4f4;
-}
 
 /* Reports Section Styles */
 .report-card {

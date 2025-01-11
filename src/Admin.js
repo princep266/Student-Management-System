@@ -6,7 +6,7 @@ import { collection, getDocs } from 'firebase/firestore'; // Firestore methods
 import StudentSection from "./components/StudentSection";
 import FeesSection from "./components/FeesSection";
 import NoticeBoard from "./components/NoticeBoard";
-import AssignmentsSection from "./components/AssignmentsSection";
+
 import AttendanceSection from "./components/AttendanceSection";
 import TimeTableSection from "./components/TimeTableSection";
 import ResultsSection from "./components/ResultsSection";

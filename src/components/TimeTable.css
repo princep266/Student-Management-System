@@ -1,0 +1,125 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #000000;
+  }
+  
+  /* Button Styles */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive Button Group */
+  div > button {
+    display: inline-block;
+    margin: 5px 10px;
+    text-align: center;
+  }
+  
+  div {
+    text-align: center;
+    /* margin: 20px 0; */
+  }
+  
+  /* Table Styles */
+  table {
+    width: 90%;
+    margin: 0 auto 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  thead {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:hover {
+    background-color: #e8f5e9;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+  
+  td input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    table {
+      width: 100%;
+      font-size: 12px;
+    }
+  
+    th, td {
+      padding: 8px;
+    }
+  
+    button {
+      font-size: 12px;
+      padding: 8px 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 18px;
+    }
+  
+    th, td {
+      font-size: 10px;
+      padding: 5px;
+    }
+  
+    button {
+      font-size: 10px;
+      padding: 5px 10px;
+    }
+  }
+  
