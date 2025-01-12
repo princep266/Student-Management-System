@@ -1,5 +1,6 @@
 Student Management System
 The Student Management System is a dynamic and modern web application built with React.js and Firebase, designed to streamline the educational experience for both students and teachers. With its intuitive interface and robust features, the system simplifies student-teacher interactions and provides seamless access to essential academic information.
+
 🌟 Key Features
 For Students:
 Personalized Dashboard
@@ -23,6 +24,8 @@ Mark and review attendance records in a streamlined interface.
 Student Data Management
 Update and maintain comprehensive student profiles.
 Real-time database synchronization via Firebase Firestore.
+
+
 🚀 How to Use
 For Students:
 Log In
