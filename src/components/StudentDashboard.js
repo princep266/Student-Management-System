@@ -23,7 +23,6 @@ const StudentDashboard = () => {
   const [showFeesDetails, setShowFeesDetails] = useState(false);
   const [assignments, setAssignments] = useState([]);
   const [attendanceCount, setAttendanceCount] = useState(0);
-
   // Fetch student details from Firestore
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -54,6 +53,7 @@ const StudentDashboard = () => {
 
     fetchStudentData();
   }, [studentId]);
+
 
   // Fetch fees data (filtered by studentId)
   useEffect(() => {
@@ -161,7 +161,7 @@ const StudentDashboard = () => {
     <div className="student-dashboard">
       {/* Sidebar */}
       <aside className="sidebar">
-        <h2 className="dashboard-title">Dashboard</h2>
+        <h2 className="dashboard-t">Dashboard</h2>
         <ul className="sidebar-menu">
           <li><a href="/timetable">Time Table</a></li>
           <li><a href="/assignments">Assignments</a></li>

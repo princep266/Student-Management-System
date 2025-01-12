@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { collection, getDocs, setDoc, doc, query, where } from 'firebase/firestore';
-import './AttendanceSection.css'; 
-import { jsPDF } from 'jspdf'; 
+import './AttendanceSection.css';
+import { jsPDF } from 'jspdf';
+
+const Loader = () => (
+  <div className="loader">
+    <span>Loading...</span>
+  </div>
+);
 
 const AttendanceSection = () => {
   const [students, setStudents] = useState([]);
-  const [attendance, setAttendance] = useState({}); 
-  const [attendanceData, setAttendanceData] = useState({}); 
-  const [showAttendance, setShowAttendance] = useState(false); 
+  const [attendance, setAttendance] = useState({});
+  const [attendanceData, setAttendanceData] = useState({});
+  const [showAttendance, setShowAttendance] = useState(false);
+  const [loading, setLoading] = useState(false); 
+  const [successMessage, setSuccessMessage] = useState(''); 
 
-  // Fetch students data including their IDs and studentId from Firestore
   useEffect(() => {
     const fetchStudents = async () => {
       try {
         const studentsRef = collection(db, "students");
         const studentDocs = await getDocs(studentsRef);
         const studentsData = studentDocs.docs.map((doc) => ({
-          id: doc.id,  // Firestore document ID (not studentId)
-          studentId: doc.data().studentId,  // Fetch the studentId field from Firestore
-          name: doc.data().name,  // Add any other fields you need here
-          ...doc.data()  // Optionally spread other student data
+          id: doc.id,
+          studentId: doc.data().studentId,
+          name: doc.data().name,
+          ...doc.data(),
         }));
         setStudents(studentsData);
       } catch (error) {
@@ -31,16 +38,15 @@ const AttendanceSection = () => {
     fetchStudents();
   }, []);
 
-  // Fetch attendance data for the current month
   useEffect(() => {
     const fetchAttendanceData = async () => {
       try {
-        const currentMonth = new Date().toISOString().split('T')[0].slice(0, 7); 
+        const currentMonth = new Date().toISOString().split('T')[0].slice(0, 7);
         const attendanceRef = collection(db, "attendance");
         const attendanceQuery = query(
           attendanceRef,
-          where("date", ">=", `${currentMonth}-01`), 
-          where("date", "<=", `${currentMonth}-31`) 
+          where("date", ">=", `${currentMonth}-01`),
+          where("date", "<=", `${currentMonth}-31`)
         );
         const attendanceDocs = await getDocs(attendanceQuery);
 
@@ -64,21 +70,20 @@ const AttendanceSection = () => {
     fetchAttendanceData();
   }, []);
 
-  // Handle attendance change for each student
   const handleAttendanceChange = (studentId, isPresent) => {
     setAttendance((prevAttendance) => ({
       ...prevAttendance,
-      [studentId]: isPresent
+      [studentId]: isPresent,
     }));
   };
 
-  // Submit attendance to Firestore
   const submitAttendance = async () => {
+    setLoading(true);
+    setSuccessMessage('');
     try {
-      const date = new Date().toISOString().split('T')[0]; // Get current date
+      const date = new Date().toISOString().split('T')[0];
       const attendanceRef = collection(db, "attendance");
 
-      // Save attendance for each student
       for (const studentId in attendance) {
         const isPresent = attendance[studentId];
 
@@ -87,70 +92,101 @@ const AttendanceSection = () => {
           continue;
         }
 
-        console.log(`Saving attendance for student: ${studentId}, Date: ${date}, Present: ${isPresent}`);
-        
-        // Save each student's attendance with their studentId
         await setDoc(doc(attendanceRef, `${studentId}_${date}`), {
-          studentId,  // Save studentId
+          studentId,
           date,
-          isPresent: isPresent
+          isPresent,
         });
       }
 
-      alert("Attendance submitted successfully!");
+      setSuccessMessage('Attendance added successfully!');
     } catch (error) {
       console.error("Error submitting attendance: ", error);
-      alert("Failed to submit attendance.");
+      setSuccessMessage('Failed to add attendance.');
+    } finally {
+      setLoading(false);
     }
   };
-
-  // Function to generate and download the PDF
   const downloadPDF = () => {
     const doc = new jsPDF();
+    const margin = 20;
+    const startY = 30;
+    const rowHeight = 10;
+    const tableWidth = 170;
+    const columnWidths = [40, 60, 50, 20]; // Adjust column widths for a balanced layout
+    let currentY = startY;
+  
+    // Add Title
     doc.setFontSize(16);
-    doc.text('Attendance List', 20, 20);
-
-    let yPosition = 30;
-
-    // Add headers
+    doc.text('Attendance List', margin, currentY);
+    currentY += 10;
+  
+    // Add Table Header
+    const headers = ['Student ID', 'Student Name', 'Date', 'Present'];
     doc.setFontSize(12);
-    doc.text('Student ID', 20, yPosition);  // Added Student ID to the PDF
-    doc.text('Student Name', 50, yPosition);
-    doc.text('Date', 100, yPosition);
-    doc.text('Present', 160, yPosition);
-    yPosition += 10;
-
-    // Loop through students and add their attendance info by date
+    doc.setFont('Helvetica', 'bold');
+    let x = margin;
+    headers.forEach((header, index) => {
+      doc.text(header, x, currentY);
+      x += columnWidths[index];
+    });
+    currentY += rowHeight;
+  
+    // Draw Data Rows
+    doc.setFont('Helvetica', 'normal');
     students.forEach((student) => {
       const studentAttendance = attendanceData[student.studentId] || [];
-
       studentAttendance.forEach((attendanceEntry) => {
         const { date, isPresent } = attendanceEntry;
-        doc.text(student.studentId, 20, yPosition);  // Display Student ID
-        doc.text(student.name, 50, yPosition);
-        doc.text(date, 100, yPosition);
-        doc.text(isPresent ? 'Present' : 'Absent', 160, yPosition);
-        yPosition += 10;
+        x = margin;
+  
+        // Row Data
+        const rowData = [
+          student.studentId,
+          student.name,
+          date,
+          isPresent ? 'Yes' : 'No',
+        ];
+  
+        // Draw each column value
+        rowData.forEach((data, index) => {
+          doc.text(data, x, currentY);
+          x += columnWidths[index];
+        });
+  
+        // Check if content exceeds the page height
+        currentY += rowHeight;
+        if (currentY + rowHeight > doc.internal.pageSize.height - margin) {
+          doc.addPage();
+          currentY = startY;
+  
+          // Repeat Header on New Page
+          x = margin;
+          headers.forEach((header, index) => {
+            doc.text(header, x, currentY);
+            x += columnWidths[index];
+          });
+          currentY += rowHeight;
+        }
       });
     });
-
-    // Save the PDF with a specific filename
+  
+    // Save the PDF
     doc.save('attendance-list.pdf');
   };
+  
 
   return (
     <div className="attendance-section">
       <h2 className="attendance-title">Attendance</h2>
-      
-      {/* Button to toggle showing attendance */}
-      <button 
-        className="show-attendance-button" 
+
+      <button
+        className="show-attendance-button"
         onClick={() => setShowAttendance((prev) => !prev)}
       >
         {showAttendance ? 'Hide Attendance' : 'Show Attendance'}
       </button>
 
-      {/* Display Attendance Information in the Panel when showAttendance is true */}
       {showAttendance && (
         <div className="attendance-table">
           <table>
@@ -168,7 +204,7 @@ const AttendanceSection = () => {
                 return studentAttendance.length > 0 ? (
                   studentAttendance.map((attendanceEntry, index) => (
                     <tr key={`${student.studentId}-${index}`}>
-                      <td>{student.studentId}</td> {/* Display studentId from Firestore */}
+                      <td>{student.studentId}</td>
                       <td>{student.name}</td>
                       <td>{attendanceEntry.date}</td>
                       <td>{attendanceEntry.isPresent ? 'Present' : 'Absent'}</td>
@@ -187,24 +223,23 @@ const AttendanceSection = () => {
         </div>
       )}
 
-      {/* Attendance Buttons */}
       <ul className="attendance-list">
         {students.map((student) => (
           <li key={student.studentId} className="attendance-item">
-            <span className="student-id">ID: {student.studentId}</span> {/* Display studentId */}
+            <span className="student-id">ID: {student.studentId}</span>
             <span className="student-name">{student.name}</span>
             <div className="attendance-buttons">
-              <button 
+              <button
                 className="present-button"
-                onClick={() => handleAttendanceChange(student.studentId, true)} 
-                style={{ backgroundColor: attendance[student.studentId] === true ? '#4caf50' : '' }}
+                onClick={() => handleAttendanceChange(student.studentId, true)}
+                aria-label={`Mark ${student.name} as Present`}
               >
                 Present
               </button>
-              <button 
+              <button
                 className="absent-button"
-                onClick={() => handleAttendanceChange(student.studentId, false)} 
-                style={{ backgroundColor: attendance[student.studentId] === false ? '#f44336' : '' }}
+                onClick={() => handleAttendanceChange(student.studentId, false)}
+                aria-label={`Mark ${student.name} as Absent`}
               >
                 Absent
               </button>
@@ -213,8 +248,10 @@ const AttendanceSection = () => {
         ))}
       </ul>
 
-      {/* Submit and Download PDF */}
-      <button className="submit-button" type="submit" onClick={submitAttendance}>
+      {loading && <Loader />}
+      {successMessage && <p className="success-message">{successMessage}</p>}
+
+      <button className="submit-button" type="submit" onClick={submitAttendance} disabled={loading}>
         Submit Attendance
       </button>
       <button className="download-pdf-button" onClick={downloadPDF}>

@@ -1,126 +1,158 @@
-
-/* Container for the attendance section */
+/* General Section Styling */
 .attendance-section {
-    margin-left: 250px;
-    margin-top: 40px;
-    font-family: Arial, sans-serif;
-    background-color: #f4f7fc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    
-  }
-  
-  /* Title styling */
-  .attendance-title {
-    margin-top: 10px;
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  /* List of attendance items */
-  .attendance-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* Individual attendance item */
-  .attendance-item {
-    background-color: #fff;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Student's name styling */
-  .student-name {
-    font-size: 16px;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  /* Attendance count styling */
-  .attendance-count {
-    font-size: 14px;
-    color: #555;
-    margin-left: 10px;
-  }
-  
-  /* Button container styling */
-  .attendance-buttons {
-    display: flex;
-    gap: 10px;
-  }
-  
-  /* Button styling for Present */
-  .present-button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 14px;
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  /* Button styling for Absent */
-  .absent-button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 14px;
-    background-color: #f44336;
-    color: white;
-  }
-  
-  /* Submit button styling */
-  .submit-button {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 8px;
-    margin-top: 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Hover effect for buttons */
-  button:hover {
-    opacity: 0.8;
-  }
-  
-  /* Submit button hover effect */
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  /* Additional styles for the Download PDF button */
+  font-family: 'Roboto', sans-serif;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 40px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.show-attendance-button,
+.submit-button,
 .download-pdf-button {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #28a745;
-    color: white;
-    border-radius: 8px;
-    margin-top: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .download-pdf-button:hover {
-    background-color: #218838;
-  }
-  
+  display: block;
+  margin: 15px auto;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.show-attendance-button:hover,
+.submit-button:hover,
+.download-pdf-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.download-pdf-button {
+  background-color: #007bff;
+}
+
+.download-pdf-button:hover {
+  background-color: #0066cc;
+}
+
+/* Loader Styling */
+.loader {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 20px 0;
+}
+
+/* Success Message Styling */
+.success-message {
+  color: #28a745;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+/* Table Styling */
+.attendance-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.attendance-table th,
+.attendance-table td {
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  text-align: left;
+}
+
+.attendance-table th {
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.attendance-table td {
+  color: #333;
+}
+
+.attendance-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.attendance-table tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Attendance List Styling */
+.attendance-list {
+  list-style: none;
+  padding: 0;
+}
+
+.attendance-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.attendance-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Button Styles for Attendance Actions */
+.present-button,
+.absent-button {
+  padding: 8px 15px;
+  margin: 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.present-button {
+  background-color: #28a745;
+}
+
+.present-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.absent-button {
+  background-color: #dc3545;
+}
+
+.absent-button:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}

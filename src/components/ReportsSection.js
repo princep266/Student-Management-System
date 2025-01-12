@@ -1,7 +1,7 @@
 import React from "react";
 
 const ReportsSection = () => {
-  // Dummy data
+
   const totalStudents = 120;
   const totalFeesCollected = 50000;
   const totalNotices = 20;

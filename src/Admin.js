@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import { db } from './components/firebase';
-import { collection, getDocs } from 'firebase/firestore'; // Firestore methods
-
+import { collection, getDocs } from 'firebase/firestore'; 
 import StudentSection from "./components/StudentSection";
 import FeesSection from "./components/FeesSection";
 import NoticeBoard from "./components/NoticeBoard";
-
 import AttendanceSection from "./components/AttendanceSection";
 import TimeTableSection from "./components/TimeTableSection";
 import ResultsSection from "./components/ResultsSection";
-import ReportsSection from "./components/ReportsSection";
-import ProfileSection from "./components/ProfileSection";
 import "./admin.css";
 import StudentAssignments from "./components/StudentAssignment";
 
@@ -22,7 +18,7 @@ const Admin = () => {
   const [totalBalance, setTotalBalance] = useState(0); 
   const [totalResultsPublished, setTotalResultsPublished] = useState(0); 
   const [totalTimeTables, setTotalTimeTables] = useState(0); 
-  const [activeMenu, setActiveMenu] = useState("dashboard"); // State for active menu item
+  const [activeMenu, setActiveMenu] = useState("dashboard"); 
 
   const navigate = useNavigate();
 
@@ -100,7 +96,7 @@ const Admin = () => {
   };
 
   const handleMenuClick = (menu) => {
-    setActiveMenu(menu); // Set the active menu item
+    setActiveMenu(menu); 
   };
 
   return (
@@ -149,16 +145,6 @@ const Admin = () => {
                 Results
               </Link>
             </li>
-            <li>
-              <Link to="/admin/reports" onClick={() => handleMenuClick("reports")}>
-                Reports
-              </Link>
-            </li>
-            <li>
-              <Link to="/admin/profile" onClick={() => handleMenuClick("profile")}>
-                Profile
-              </Link>
-            </li>
           </ul>
         </nav>
         <button className="logout-button" onClick={handleSignOut}>
@@ -171,27 +157,27 @@ const Admin = () => {
           <>
             <h1 className="dashboard-title">Dashboard Overview</h1>
             <div className="dashboard-grid">
-              <div className="dashboard-card">
+              <div className="dashboard-card card-students">
                 <h3>Total Students</h3>
                 <p>{totalStudents}</p>
               </div>
-              <div className="dashboard-card">
+              <div className="dashboard-card card-fees">
                 <h3>Total Fees Collected</h3>
                 <p>{totalFeesCollected}</p>
               </div>
-              <div className="dashboard-card">
+              <div className="dashboard-card card-balance">
                 <h3>Total Balance</h3>
                 <p>{totalBalance}</p>
               </div>
-              <div className="dashboard-card">
+              <div className="dashboard-card card-notices">
                 <h3>New Notices</h3>
                 <p>{totalNotices}</p>
               </div>
-              <div className="dashboard-card">
+              <div className="dashboard-card card-results">
                 <h3>Results Published</h3>
                 <p>{totalResultsPublished}</p>
               </div>
-              <div className="dashboard-card">
+              <div className="dashboard-card card-timetables">
                 <h3>Time Tables</h3>
                 <p>{totalTimeTables}</p>
               </div>
@@ -208,8 +194,6 @@ const Admin = () => {
           <Route path="/attendance" element={<AttendanceSection />} /> 
           <Route path="/timetable" element={<TimeTableSection />} />
           <Route path="/results" element={<ResultsSection />} />
-          <Route path="/reports" element={<ReportsSection />} />
-          <Route path="/profile" element={<ProfileSection />} />
         </Routes>
       </main>
     </div>

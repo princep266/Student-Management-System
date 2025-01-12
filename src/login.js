@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from './components/firebase'; // Firebase Firestore instance
-import { collection, getDocs, query, where } from 'firebase/firestore'; // Firestore methods
+import { db } from './components/firebase'; 
+import { collection, getDocs, query, where } from 'firebase/firestore'; 
 import "./login.css";
 
 const Login = () => {
   const [studentId, setStudentId] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState(""); // For admin login
+  const [username, setUsername] = useState("");
   const [loginType, setLoginType] = useState("Student");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   // Hardcoded admin credentials
-  const adminUsername = "admin"; // Set your admin username
-  const adminPassword = "admin123"; // Set your admin password
+  const adminUsername = "Prince"; 
+  const adminPassword = "Prince@123"; 
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +57,7 @@ const Login = () => {
           if (studentData.password === password) {
             studentFound = true;
             studentName = studentData.name; // Get the student's name
-            // Redirect to student dashboard or home page with state
+            
             navigate("/student-dashboard", { state: { studentId, studentName } }); // Pass student ID and name
           }
         });
@@ -105,10 +105,10 @@ const Login = () => {
           {loginType === "Student" && (
             <>
               <input
-                type="text" // Changed type to text for Student ID
+                type="text" 
                 placeholder="Student ID"
-                value={studentId} // Use studentId state
-                onChange={(e) => setStudentId(e.target.value)} // Update state
+                value={studentId} 
+                onChange={(e) => setStudentId(e.target.value)} 
                 required
               />
             </>
