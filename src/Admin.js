@@ -158,7 +158,9 @@ const Admin = () => {
             <h1 className="dashboard-title">Dashboard Overview</h1>
             <div className="dashboard-grid">
               <div className="dashboard-card card-students">
-                <h3>Total Students</h3>
+              <Link class="linkdecoration" to="/admin/students" onClick={() => handleMenuClick("students")}>
+              <h3>Total Students</h3>
+              </Link>
                 <p>{totalStudents}</p>
               </div>
               <div className="dashboard-card card-fees">
@@ -169,12 +171,17 @@ const Admin = () => {
                 <h3>Total Balance</h3>
                 <p>{totalBalance}</p>
               </div>
-              <div className="dashboard-card card-notices">
-                <h3>New Notices</h3>
+              <div className="dashboard-card card-notices" >
+              <Link class="linkdecoration" to="/admin/notice-board" onClick={() => handleMenuClick("notices")}>
+                  <h3>New Notices</h3>
+              </Link>
                 <p>{totalNotices}</p>
               </div>
               <div className="dashboard-card card-results">
-                <h3>Results Published</h3>
+              <Link class="linkdecoration" to="/admin/results" onClick={() => handleMenuClick("results")}>
+              <h3>Results Published</h3>
+              </Link>
+                
                 <p>{totalResultsPublished}</p>
               </div>
               <div className="dashboard-card card-timetables">
