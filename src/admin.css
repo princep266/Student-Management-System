@@ -1,4 +1,4 @@
-/* Admin Layout */
+
 .linkdecoration
 {
   text-decoration: none;
@@ -60,7 +60,7 @@
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 30px;
 }
 
@@ -84,7 +84,7 @@
   color: white;
 }
 
-/* Color scheme for cards */
+
 .card-students {
   background-color: #00a8e8; /* Bright blue */
 }
