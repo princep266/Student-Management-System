@@ -8,7 +8,6 @@ import Results from './components/Results';
 import StudentDashboard from "./components/StudentDashboard";
 import AssignmentsSection from "./components/AssignmentsSection";
 import CreateAccount from "./components/CreateAccount";
-import ContactUs from "./components/ContactUs";
 
 const App = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -42,9 +41,7 @@ const App = () => {
               )}
             </li>
             <li><a href="#service">Service</a></li>
-            <li><Link to="/contactUs">
-                Contact
-              </Link></li>
+            <li><a href="#contact">Contact</a></li>
             <li>
               <Link to="/login">
                 <button className="cta-button">Login / Sign Up</button>
@@ -196,8 +193,6 @@ const App = () => {
         <Route path="/admin/*" element={<Admin />} /> { }
 
         <Route path="/create-account" element={<CreateAccount />} />
-        <Route path="/contactUs" element={<ContactUs />} />
-
       </Routes>
     </Router>
   );
