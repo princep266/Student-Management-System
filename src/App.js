@@ -197,6 +197,7 @@ const App = () => {
 
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/contactUs" element={<ContactUs />} />
+
       </Routes>
     </Router>
   );
