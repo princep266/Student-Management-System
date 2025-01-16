@@ -1,12 +1,13 @@
 // File: src/App.js
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom"; 
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
-import Login from "./login"; 
+import Login from "./login";
 import Admin from "./Admin";
-import Results from './components/Results'; 
-import StudentDashboard from "./components/StudentDashboard"; 
+import Results from './components/Results';
+import StudentDashboard from "./components/StudentDashboard";
 import AssignmentsSection from "./components/AssignmentsSection";
+import CreateAccount from "./components/CreateAccount";
 
 const App = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -131,7 +132,7 @@ const App = () => {
                   <h3>Prince Prajapati</h3>
                   <p>Founder & CEO</p>
                 </div>
-                
+
               </div>
             </section>
 
@@ -139,9 +140,10 @@ const App = () => {
             <section className="cta-section">
               <h2>Ready to Get Started?</h2>
               <p>Join thousands of schools and institutions already using our system to streamline their processes.</p>
-              <Link to="/login">
+              <Link to="/create-account">
                 <button className="cta-button">Create an Account</button>
               </Link>
+
             </section>
 
             <footer>
@@ -185,10 +187,12 @@ const App = () => {
           </>
         } />
         <Route path="/login" element={<Login />} />
-        <Route path="/Results" element={<Results />} /> {}
+        <Route path="/Results" element={<Results />} /> { }
         <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route path="/assignments" element={<AssignmentsSection />} /> {  }
+        <Route path="/assignments" element={<AssignmentsSection />} /> { }
         <Route path="/admin/*" element={<Admin />} /> { }
+
+        <Route path="/create-account" element={<CreateAccount />} />
       </Routes>
     </Router>
   );

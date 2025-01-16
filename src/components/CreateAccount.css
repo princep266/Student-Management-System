@@ -1,0 +1,174 @@
+body{
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #001845, #0466c8);}
+
+.create-account-container {
+  max-width: 450px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border: none;
+  border-radius: 12px;
+  background: #f3f3f3;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.create-account-container:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.create-account-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  background-color: #f8d7da;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #f5c6cb;
+}
+
+.create-account-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.create-account-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+  color: #555;
+  font-family: "Roboto", sans-serif;
+}
+
+.create-account-form input {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f9f9f9;
+  transition: all 0.2s ease;
+  font-family: "Roboto", sans-serif;
+}
+
+.create-account-form input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.create-account-form .cta-button {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.create-account-form .cta-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.success-message {
+  text-align: center;
+  margin-top: 2rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.success-message h3 {
+  color: #28a745;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.success-message p {
+  font-size: 1rem;
+  color: #333;
+  margin: 0.8rem 0;
+}
+
+.success-message button {
+  padding: 0.85rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.success-message button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .success-message {
+    text-align: center;
+    margin-top: 2rem;
+    font-family: "Roboto", sans-serif;
+    animation: fadeInUp 0.5s ease-in-out;
+  }
+  
+  .success-message h3 {
+    color: #28a745;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .success-message span{
+    color: #d9534f;
+  }
+  .success-message p {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.8rem 0;
+  }
+  
+  .success-message button {
+    padding: 0.85rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .success-message button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+  }
+  .loader {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
