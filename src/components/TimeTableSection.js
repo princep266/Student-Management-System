@@ -3,7 +3,7 @@ import './TimeTable.css';
 
 
 const TimeTableSection = () => {
-  // Default timetable and days
+ 
   const defaultDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const defaultTimetable = [
     ["Math", "Physics", "Chemistry", "Break", "English", "Computer Science"],
@@ -13,40 +13,40 @@ const TimeTableSection = () => {
     ["Physics", "Chemistry", "Biology", "Break", "Sports", "Arts"],
   ];
 
-  // State for timetable and days
+
   const [days, setDays] = useState(defaultDays);
   const [timetable, setTimetable] = useState(defaultTimetable);
 
-  // Reset timetable to default values
+ 
   const resetTimetable = () => {
     setDays(defaultDays);
     setTimetable(defaultTimetable);
   };
 
-  // Add a new day
+ 
   const addDay = () => {
-    setDays([...days, `Day ${days.length + 1}`]); // Dynamically name the new day
-    setTimetable([...timetable, ["", "", "", "", "", ""]]); // Add an empty row for the new day
+    setDays([...days, `Day ${days.length + 1}`]);
+    setTimetable([...timetable, ["", "", "", "", "", ""]]); 
   };
 
   // Remove the last day
   const removeDay = () => {
     if (days.length > 1) {
-      setDays(days.slice(0, -1)); // Remove the last day
-      setTimetable(timetable.slice(0, -1)); // Remove the corresponding row in the timetable
+      setDays(days.slice(0, -1)); 
+      setTimetable(timetable.slice(0, -1)); 
     }
   };
 
   // Add a new period (column)
   const addPeriod = () => {
-    const updatedTimetable = timetable.map((row) => [...row, ""]); // Add an empty cell to each row
+    const updatedTimetable = timetable.map((row) => [...row, ""]); 
     setTimetable(updatedTimetable);
   };
 
   // Remove the last period (column)
   const removePeriod = () => {
     if (timetable[0].length > 1) {
-      const updatedTimetable = timetable.map((row) => row.slice(0, -1)); // Remove the last cell in each row
+      const updatedTimetable = timetable.map((row) => row.slice(0, -1)); 
       setTimetable(updatedTimetable);
     }
   };
@@ -54,8 +54,8 @@ const TimeTableSection = () => {
   // Handle input changes in the timetable
   const handleInputChange = (dayIndex, periodIndex, value) => {
     const updatedTimetable = [...timetable];
-    updatedTimetable[dayIndex][periodIndex] = value; // Update the specific cell
-    setTimetable(updatedTimetable); // Update the state
+    updatedTimetable[dayIndex][periodIndex] = value;
+    setTimetable(updatedTimetable);
   };
 
   return (

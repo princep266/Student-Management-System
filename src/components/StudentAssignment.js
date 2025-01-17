@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db, storage, collection, getDocs, addDoc, serverTimestamp } from './firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import './studentAssignment.css'; // Your custom CSS for styling
+import './studentAssignment.css'; 
 
 const StudentAssignment = () => {
   const [title, setTitle] = useState('');

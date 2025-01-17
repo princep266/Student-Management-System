@@ -13,7 +13,7 @@ body {
     color: #000000;
   }
   
-  /* Button Styles */
+
   button {
     background-color: #4CAF50;
     color: white;
@@ -35,7 +35,6 @@ body {
     cursor: not-allowed;
   }
   
-  /* Responsive Button Group */
   div > button {
     display: inline-block;
     margin: 5px 10px;
@@ -44,10 +43,10 @@ body {
   
   div {
     text-align: center;
-    /* margin: 20px 0; */
+   
   }
   
-  /* Table Styles */
+
   table {
     width: 90%;
     margin: 0 auto 20px auto;
@@ -90,7 +89,7 @@ body {
     box-sizing: border-box;
   }
   
-  /* Responsive Design */
+
   @media (max-width: 768px) {
     table {
       width: 100%;

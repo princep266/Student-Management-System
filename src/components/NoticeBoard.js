@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { db } from './firebase'; // Make sure Firebase is correctly initialized
-import { collection, addDoc, onSnapshot } from 'firebase/firestore'; // Firestore methods
+import { db } from './firebase'; 
+import { collection, addDoc, onSnapshot } from 'firebase/firestore'; 
 import "./noticeBoard.css";
 
 const NoticeBoard = () => {
-  const [notices, setNotices] = useState([]); // State to store notices from Firestore
+  const [notices, setNotices] = useState([]); 
   const [newNotice, setNewNotice] = useState({
     date: "",
     author: "",
@@ -17,10 +17,10 @@ const NoticeBoard = () => {
       const unsubscribe = onSnapshot(collection(db, "notices"), (snapshot) => {
         const noticesData = snapshot.docs.map(doc => ({
           ...doc.data(),
-          id: doc.id, // Document ID
+          id: doc.id, 
         }));
-        setNotices(noticesData); // Update state with real-time data from Firestore
-        console.log("Notices fetched from Firestore: ", noticesData); // Debugging log
+        setNotices(noticesData); 
+        console.log("Notices fetched from Firestore: ", noticesData);
       });
 
       // Clean up the listener when the component unmounts
@@ -55,7 +55,7 @@ const NoticeBoard = () => {
 
       // Clear the form after submission
       setNewNotice({ date: "", author: "", message: "" });
-      console.log("Notice added successfully."); // Debugging log
+      console.log("Notice added successfully."); 
     } catch (error) {
       console.error("Error adding notice: ", error);
     }

@@ -42,7 +42,7 @@ const ContactUs = () => {
           <div className="other-options">
             <div className="option">
               <h2>Give us a call.</h2>
-              <p>91-7208327881 <br></br> 91-9004023881</p>
+              <p>+91-7208327881 <br></br> 91-9004023881</p>
               <h3>Fill free to contact us !!</h3>
               
             </div>

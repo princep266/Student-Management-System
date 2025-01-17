@@ -1,13 +1,12 @@
-/* General styling for the dashboard layout */
+
 .student-dashboard {
   display: flex;
   height: 100vh;
   background-color: #f4f6f9;
   font-family: Arial, sans-serif;
-  overflow: hidden; /* Prevent content overflow */
+  overflow: hidden; 
 }
 
-/* Sidebar styling */
 .sidebar {
   width: 250px;
   background-color: #03045e;

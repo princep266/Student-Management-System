@@ -26,4 +26,4 @@ const realtimedb = getDatabase(app);
 const storage = getStorage(app);
 
 // Export Firebase services
-export { db, realtimedb, storage, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp };  // Now including serverTimestamp
+export { db, realtimedb, storage, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp };  
