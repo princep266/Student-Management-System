@@ -48,7 +48,7 @@ const CreateAccount = () => {
       return;
     }
 
-    setIsLoading(true); // Set loading state
+    setIsLoading(true); 
 
     // Generate userId and password
     const userId = generateUserID(fullName);
@@ -70,7 +70,7 @@ const CreateAccount = () => {
       // Store generated credentials in state for display
       setGeneratedCredentials({ userId, password });
 
-      // Reset form and error
+     
       setFormData({
         fullName: "",
         dob: "",
@@ -80,7 +80,7 @@ const CreateAccount = () => {
       });
       setError("");
 
-      // Show success message after delay
+   
       setTimeout(() => {
         setShowSuccessMessage(true);
         setIsLoading(false); 
@@ -107,7 +107,7 @@ const CreateAccount = () => {
               value={formData.fullName}
               onChange={handleInputChange}
               required
-              disabled={isLoading} // Disable input during loading
+              disabled={isLoading} 
             />
           </div>
           <div className="form-group">
@@ -119,7 +119,7 @@ const CreateAccount = () => {
               value={formData.dob}
               onChange={handleInputChange}
               required
-              disabled={isLoading} // Disable input during loading
+              disabled={isLoading} 
             />
           </div>
           <div className="form-group">
@@ -144,7 +144,7 @@ const CreateAccount = () => {
               onChange={handleInputChange}
               required
               maxLength="10"
-              disabled={isLoading} // Disable input during loading
+              disabled={isLoading} 
             />
           </div>
           <div className="form-group">
@@ -156,7 +156,7 @@ const CreateAccount = () => {
               value={formData.institute}
               onChange={handleInputChange}
               required
-              disabled={isLoading} // Disable input during loading
+              disabled={isLoading} 
             />
           </div>
 

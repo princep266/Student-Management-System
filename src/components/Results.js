@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { db } from "./firebase"; // Firebase config
-import { collection, getDocs } from "firebase/firestore"; // Firestore methods
-import "./Results.css"; // Optional CSS
+import { db } from "./firebase"; 
+import { collection, getDocs } from "firebase/firestore"; 
+import "./Results.css"; 
 
 const Results = () => {
   const [results, setResults] = useState([]);

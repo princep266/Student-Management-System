@@ -45,7 +45,6 @@ header {
 
 
 
-/* Hamburger menu */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -59,7 +58,6 @@ header {
   margin: 3px 0;
 }
 
-/* Footer styles */
 footer {
   background-color: #222;
   color: white;
@@ -152,83 +150,79 @@ footer {
   }
 }
 
-/* Flexbox layout for hero section */
 .hero-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2rem;
-  background: linear-gradient(135deg, #1b3a4b, #065a60); /* Gradient background */
+  background: linear-gradient(135deg, #1b3a4b, #065a60); 
   color: white;
   height: 100vh;
 }
 
-/* Left side image */
 .hero-image {
-  flex: 1; /* Takes 1 part of available space */
+  flex: 1; 
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 2rem; /* Add padding between image and content */
+  padding-right: 2rem; 
 }
 
 .hero-image img {
   width: 100%; 
   max-width: 300px; 
-  /* border-radius: 10px;  */
-   /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);  */
+
 } 
 
-/* Right side text */
 .hero-container {
-  flex: 1.5; /* Takes 1.5 parts of available space */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  flex: 1.5; 
+  background-color: rgba(0, 0, 0, 0.5); 
   padding: 2rem;
   border-radius: 10px;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .hero-section {
-    flex-direction: column; /* Stack image and content vertically */
+    flex-direction: column; 
     align-items: center;
   }
   
   .hero-image, .hero-container {
-    flex: unset; /* Disable flex sizing */
-    width: 100%; /* Take full width on small screens */
+    flex: unset; 
+    width: 100%; 
     padding: 0;
   }
   
   .hero-image img {
-    max-width: 200px; /* Adjust image size for smaller screens */
+    max-width: 200px; 
   }
 }
 
-/* Hero container animation */
 .hero-container {
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5); 
   padding: 1rem;
   border-radius: 10px;
-  animation: fadeIn 1s ease-in-out; /* Fade-in animation for the container */
+  animation: fadeIn 1s ease-in-out; 
 }
 
 .hero-container h1 {
+  color: white;
   font-size: 3rem;
   margin-bottom: 1rem;
-  animation: slideInDown 1.5s ease-in-out; /* Slide-down animation */
+  animation: slideInDown 1.5s ease-in-out; 
 }
 
 .hero-container p {
   font-size: 1.5rem;
   margin-bottom: 2rem;
-  animation: slideInUp 1.5s ease-in-out; /* Slide-up animation */
+  animation: slideInUp 1.5s ease-in-out;
 }
 
 .feature-list {
   list-style: none;
   padding: 0;
-  animation: fadeInUp 2s ease-in-out; /* Fade-up animation for feature list */
+  animation: fadeInUp 2s ease-in-out;
 }
 
 .feature-list li {
@@ -236,15 +230,15 @@ footer {
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
-  transition: transform 0.3s ease, color 0.3s ease; /* Smooth hover transition */
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .feature-list li:hover {
-  transform: scale(1.05); /* Slightly enlarge on hover */
-  color: #f1c40f; /* Change color on hover */
+  transform: scale(1.05); 
+  color: #f1c40f; 
 }
 
-/* Navbar hover effects */
+
 .nav-links a {
   color: white;
   text-decoration: none;
@@ -326,6 +320,7 @@ section {
 }
 
 h2 {
+  
   font-size: 2.5rem;
   margin-bottom: 20px;
 }
@@ -454,7 +449,7 @@ p {
   color: #666;
 }
 
-/* Call to Action Section */
+
 .cta-section {
   background-color: #007bff;
   color: white;
@@ -487,3 +482,15 @@ p {
   color: white;
 }
 
+.team-section h2{
+  color: black;
+}
+.testimonials-section  h2{
+  color: black;
+}
+.features-section h2{
+  color: black;
+}
+.about-section h2{
+  color: black;
+}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { db } from "./firebase"; // Import your Firebase config
-import { collection, getDocs, addDoc } from "firebase/firestore"; // Import Firestore methods
-import "./ResultsSection.css"; // Optional CSS for styling
+import { db } from "./firebase"; 
+import { collection, getDocs, addDoc } from "firebase/firestore"; 
+import "./ResultsSection.css"; 
 
 const ResultsSection = () => {
-  const [students, setStudents] = useState([]); // List of students fetched from the database
+  const [students, setStudents] = useState([]); 
   const [newResult, setNewResult] = useState({
     studentId: "",
     examName: "",
@@ -79,7 +79,7 @@ const ResultsSection = () => {
     }));
   };
 
-  // Add a new subject result
+
   const handleAddSubject = () => {
     setNewResult((prev) => ({
       ...prev,
@@ -87,7 +87,7 @@ const ResultsSection = () => {
     }));
   };
 
-  // Handle adding a new result
+ 
   const handleAddResult = async (e) => {
     e.preventDefault();
 
@@ -104,7 +104,7 @@ const ResultsSection = () => {
       return;
     }
 
-    // Calculate obtained marks and total marks
+    
     const obtainedMarks = newResult.subjectResults.reduce((sum, subject) => sum + parseInt(subject.marksObtained || 0), 0);
     const totalMarks = newResult.subjectResults.reduce((sum, subject) => sum + parseInt(subject.totalMarks || 0), 0);
 
@@ -120,14 +120,14 @@ const ResultsSection = () => {
 
     try {
       // Add the result to Firestore
-      const resultCollection = collection(db, "results"); // Ensure "results" collection exists in Firestore
+      const resultCollection = collection(db, "results"); 
       const docRef = await addDoc(resultCollection, result);
 
       // Add the result to the local state
       setResults((prev) => [
         ...prev,
         {
-          id: docRef.id, // Use Firestore document ID
+          id: docRef.id, 
           ...result,
         },
       ]);
