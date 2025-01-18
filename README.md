@@ -39,7 +39,7 @@ Welcome to the **Student Management System**, a modern, feature-rich web applica
 
 ## 🌐 Website Preview
 
-[![Student Management System](https://via.placeholder.com/1200x630.png?text=Student+Management+System+Preview)](https://student-princeprajapati.netlify.app)
+[![Student Management System](https://www.academyfront.com/images/blog/school-software.png?text=Student+Management+System+Preview)](https://student-princeprajapati.netlify.app)
 
 Click the image above or visit the live demo at:  
 👉 **[Student Management System Live Preview](https://student-princeprajapati.netlify.app)**
