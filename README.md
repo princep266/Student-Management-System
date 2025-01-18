@@ -37,6 +37,15 @@ Welcome to the **Student Management System**, a modern, feature-rich web applica
 
 ---
 
+## 🌐 Website Preview
+
+[![Student Management System](https://via.placeholder.com/1200x630.png?text=Student+Management+System+Preview)](https://student-princeprajapati.netlify.app)
+
+Click the image above or visit the live demo at:  
+👉 **[Student Management System Live Preview](https://student-princeprajapati.netlify.app)**
+
+---
+
 ## 🚀 How to Get Started
 
 ### For Students:
@@ -58,5 +67,3 @@ Welcome to the **Student Management System**, a modern, feature-rich web applica
 ## 👨‍💻 Meet the Developer
 
 This system is proudly developed and maintained by **Prince Prajapati**. I am committed to enhancing the educational experience with innovative tech solutions. Your feedback and suggestions are invaluable, so don't hesitate to reach out!
-
-
